@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Writer Canvas Creator</title>
+  <meta name="title" content="Writer Canvas | Create Beautiful Quote Images & Devotionals">
+    <meta name="description"
+        content="Transform your words into art. Design beautiful text-on-image graphics for social media, devotionals, and reflections. Customize backgrounds, overlays, and typography instantly.">
+    <meta name="keywords"
+        content="Quote Creator, Devotional Maker, Text on Image, Instagram Post Design, Christian Content Tools, Social Media Graphics, Writer Canvas, Gospel Canvas Creator">
+    <meta name="author" content="Atuoha Anthony">
+
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-navbutton-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://atuoha.github.io/writer-canvas/">
+    <meta property="og:title" content="Writer Canvas - Design. Reflect. Share.">
+    <meta property="og:description"
+        content="Create stunning quote images and devotional graphics in seconds. Download high-quality PNGs optimized for Instagram. No design skills required.">
+    <meta property="og:image" content="assets/imgs/banner.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://atuoha.github.io/writer-canvas/">
+    <meta property="twitter:title" content="Writer Canvas">
+    <meta property="twitter:description"
+        content="The simplest way to turn your thoughts into beautiful shareable graphics. Perfect for writers, thinkers, and creators.">
+    <meta property="twitter:image" content="assets/imgs/banner.png">
+
+    <link href="assets/imgs/icon.png" rel="icon">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="app-header">
+    <h1>Writer Canvas</h1>
+    <p class="text-muted">Design. Reflect. Share.</p>
+  </div>
+
+  <div class="row g-5 justify-content-center">
+    
+    <div class="col-lg-5">
+      <div class="editor-card">
+        
+        <div class="mb-4">
+          <label>Your Message</label>
+          <textarea id="inputText" class="form-control" placeholder="Write your devotional thought here..."></textarea>
+        </div>
+
+        <div class="mb-4">
+          <label>Author Name</label>
+          <input type="text" id="inputAuthor" class="form-control" placeholder="e.g. Your Name">
+        </div>
+
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+          <label class="mb-0">Select Background</label>
+          <div class="file-upload" onclick="document.getElementById('fileUpload').click()">
+            Upload Own Image
+            <input type="file" id="fileUpload" hidden accept="image/*" onchange="handleUpload(event)">
+          </div>
+        </div>
+
+        <div class="image-grid" id="imageGrid">
+          </div>
+
+        <div class="mt-4">
+          <div class="d-flex justify-content-between">
+            <label>Overlay Strength (Fade)</label>
+            <span id="rangeValue" style="font-size:0.8rem; color:#666;">40%</span>
+          </div>
+          <input type="range" class="form-range" min="0" max="90" value="40" id="opacityRange">
+        </div>
+
+        <div class="btn-group-custom">
+          <button class="btn-reset" onclick="resetCanvas()">Start Over</button>
+          <button class="btn-generate" id="generateBtn" onclick="generateCanvas()">Generate</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div id="previewSection" class="preview-section">
+        
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <label class="mb-0 text-dark">Preview Result</label>
+        </div>
+
+        <div class="canvas-container" id="canvasArea">
+          <div class="canvas-loader" id="canvasLoader">
+            <div class="lds-dual-ring"></div>
+            <p class="mt-2 small text-muted font-weight-bold">Loading Image...</p>
+          </div>
+
+          <img id="bgImage" class="layer-bg" crossorigin="anonymous">
+          
+          <div id="whiteOverlay" class="layer-overlay"></div>
+          
+          <div class="layer-text">
+            <div id="finalText"></div>
+            <div id="finalSignature"></div>
+          </div>
+        </div>
+
+        <button class="btn-download" onclick="downloadImage()" id="dlBtn">Download Image</button>
+        <p class="text-center mt-3 text-muted small">Designed for Instagram (4:5)</p>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
