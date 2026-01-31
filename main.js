@@ -57,9 +57,26 @@ function handleUpload(e) {
   reader.onload = (event) => {
     selectedImageUrl = event.target.result;
     document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-    if (previewSection.classList.contains('visible')) {
+
+    const existing = document.getElementById('uploadedThumb');
+    if (existing) existing.remove();
+
+    const uploadedThumb = document.createElement('img');
+    uploadedThumb.id = 'uploadedThumb';
+    uploadedThumb.src = selectedImageUrl;
+    uploadedThumb.className = 'thumb active';
+    uploadedThumb.onclick = () => {
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      uploadedThumb.classList.add('active');
+      selectedImageUrl = uploadedThumb.src;
       updateCanvasImage(selectedImageUrl);
-    }
+    };
+
+    if (grid.firstChild) grid.insertBefore(uploadedThumb, grid.firstChild);
+    else grid.appendChild(uploadedThumb);
+
+    updateCanvasImage(selectedImageUrl);
+    previewSection.classList.add('visible');
   };
   reader.readAsDataURL(file);
 }
